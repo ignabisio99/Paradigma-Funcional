@@ -1,0 +1,160 @@
+import TP2.*
+describe "Chaqui" {
+	
+	test "Debe poder enviar un mensaje corto" {
+		
+		assert.that(chasqui.puedeEnviar("1234567890123456789012345678901234567890123456789"))
+	}
+	test "No debe poder enviar un mensaje largo" {
+		
+		assert.notThat(chasqui.puedeEnviar("12345678901234567890123456789012345678901234567890"))
+		
+	}
+	test "No debe poder enviar un mensaje menor a veinte caracteres" {
+		
+		assert.notThat(chasqui.puedeEnviar("1234567890123456789"))
+		
+	}
+	test "Calcular el costo del mensaje" {
+		
+		var mensaje = new MensajeComun(mensaje = "123456789012")
+		assert.equals(24,chasqui.costoMensaje(mensaje))
+	}
+}
+
+describe "Sherpa" {
+	
+	test "No debe poder enviar un mensaje con cantidad impar de caracteres" {
+		assert.notThat(sherpa.puedeEnviar("123456789012345678901"))
+	}
+	test "Debe poder enviar un mensaje con cantidad par de caracteres" {
+		assert.that(sherpa.puedeEnviar("1234567890123456789012"))
+	}
+	test "No debe poder enviar un mensaje menor a veinte caracteres" {
+		
+		assert.notThat(chasqui.puedeEnviar("1234567890123456789"))
+		
+	}
+	test "Calcular el costo del mensaje"{
+		
+		var mensaje = new MensajeComun(mensaje = "1234567890")
+		assert.equals(60,sherpa.costoMensaje(mensaje))
+	}
+	
+}
+
+describe "Messich" {
+	
+	test "No debe poder enviar un mensaje" {
+		assert.notThat(messich.puedeEnviar("abracadabra"))
+	}
+	
+	test "Debe poder enviar un mensaje" {
+		assert.that(messich.puedeEnviar("insfraestructuralmente  analogiacamente posible"))
+	}
+	test "No debe poder enviar un mensaje menor a veinte caracteres" {
+		
+		assert.notThat(chasqui.puedeEnviar("insfraestructura"))
+		
+	}
+	
+
+	test "Calcular el costo del mensaje"{
+		
+		var mensaje = new MensajeComun(mensaje = "pata de cabra")
+		assert.equals(30,messich.costoMensaje(mensaje))
+	}
+	
+}
+
+describe "Pali" {
+	
+	test "Puede enviar mensajes solo si son palíndromos" {
+		assert.that(pali.puedeEnviar("neuquen alla neuquen"))
+	}
+	test "No debe poder enviar el mensaje" {
+		assert.notThat(pali.puedeEnviar("abracadabra"))
+	}
+	test "No debe poder enviar un mensaje menor a veinte caracteres" {
+		
+		assert.notThat(chasqui.puedeEnviar("anita lava latina"))
+		
+	}
+	test "Calcular el costo del mensaje corto"{
+		
+		var mensaje = new MensajeComun(mensaje = "anita lava la tina")
+		assert.equals(72,pali.costoMensaje(mensaje))
+	}
+	test "Calcular el costo del mensaje largo"{
+		
+		var mensaje = new MensajeComun(mensaje = "Alli va Ramón y no maravilla")
+		assert.equals(80,pali.costoMensaje(mensaje))
+	}
+}
+
+/* describe "Mensajero Estandar"{
+	
+	var unMensajero
+	var unMensajeroRapido
+	var unMensajeroEstandar
+	var unMensajeroVip
+	
+	method initialize(){
+		unMensajero = new MensajeroEstandar(sector = enviosRapidos)
+		unMensajeroRapido = new MensajeroEstandar(sector = enviosRapidos)
+		unMensajeroEstandar = new MensajeroEstandar(sector = enviosEstandares)
+		unMensajeroVip = new MensajeroEstandar(sector = enviosVIP)
+	}
+	
+	
+	test "Puede enviar mensajes de mas de 20 caracteres"{
+		assert.that(unMensajero.puedeEnviar("Boca, mi buen amigo, 
+esta camapania volveremos"))
+	}
+	
+	test "No puede enviar mensajes con menos de 20 caracteres"{
+		assert.notThat(unMensajero.puedeEnviar("Dale boca"))
+	}
+	
+	test "Calcular el costo para un mensajero rapido"{
+		assert.equals(140,unMensajeroRapido.costoMensaje("La casa de la abuela esta buena"))
+}
+	
+	test "Calcular el costo para un mensajero estandar"{
+		assert.equals(105,unMensajeroEstandar.costoMensaje("La casa de la abuela esta buena"))
+	}
+	
+	test "Calcular el costo para un mensajero vip"{
+		assert.equals(210,unMensajeroVip.costoMensaje("La casa de la abuela esta buena"))
+	}
+}*/
+
+describe "Mensajeria" {
+	
+	test "Para mandar el mensaje “nomelacontessolocomovosqueres” " {
+		
+		assert.equals(messich, agenciaDeMensajeria.aQuienPedirle("nomelacontessolocomovosqueres"))
+	}
+	test "Para mandar el mensaje “hola chau hola chau hola chau hola chau hola chau” " {
+		
+		assert.equals(chasqui, agenciaDeMensajeria.aQuienPedirle("hola chau hola chau hola chau hola chau hola chau"))
+	}
+	
+		test "El mensaje esta vacio"{
+		assert.that(agenciaDeMensajeria.mensajeVacio(""))
+	}
+	
+	test "No se puede recibir el mensaje porque esta vacio"{
+		assert.throwsExceptionWithMessage("No se puede recibir el mensaje",{agenciaDeMensajeria.recibirMensaje("")})
+	}
+	
+	test "Calcular la ganancia neta y definir al empleado del mes a partir de 3 mensajes recibidos"{
+		agenciaDeMensajeria.recibirMensaje("1234567890123456789012345678901234567890123456789")
+		agenciaDeMensajeria.recibirMensaje("insfraestructuralmente  analogiacamente posible")
+		assert.equals(1750,agenciaDeMensajeria.gananciaNeta())
+		assert.equals(messich,agenciaDeMensajeria.chasquiQuilla())
+	}	
+}		
+	
+	
+	
